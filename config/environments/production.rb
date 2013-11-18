@@ -78,7 +78,18 @@ Pinteresting::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  #Note to set this for my actual host
-  #Reuiqred for Heroku
+  # Note to set this for my actual host
+  # Reuiqred for Heroku
   config.action_mailer.default_url_options = { :host => 'lit-lowlands-3534.herokuapp.com' }
+
+  # Sets Paperclip to upload to Amazon S3
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['S3_BUCKET'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
+
 end
